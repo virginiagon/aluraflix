@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import PageDefault from '../../../components/PageDefault';
 import { Link } from 'react-router-dom';
+import FormField from '../../../components/FormField';
 
 function CadastroCategoria() {
   const valoresIniciais = {
     nome: '',
     descricao: '',
-    cor: '#000',
+    cor: '',
   }
   const [categorias, setCategorias] = useState([]);
   const [values, setValues] = useState(valoresIniciais);
@@ -19,10 +20,10 @@ function CadastroCategoria() {
     })
   }
 
-  function handleChange(value) {
+  function handleChange(infosDoEvento) {
     setValue(
-      value.target.getAttribute('name'), 
-      value.target.value
+      infosDoEvento.target.getAttribute('name'), 
+      infosDoEvento.target.value
     );
   }
 
@@ -34,19 +35,15 @@ function CadastroCategoria() {
         //...categorias é como se tivesse falando pega todas as categorias sem jogar fora e 
         //adiciona essa nova categoria.
         setCategorias([...categorias, values]);
-        setValues({valoresIniciais})
+        setValues(valoresIniciais)
       }}>
-        <div>
-          <label>
-            Nome da Categoria:
-            <input
-              type="text"
-              value={values.nome}
-              name="nome"
-              onChange={handleChange}
-            />
-          </label>
-        </div>
+        <FormField
+          type="text"
+          name="nome"
+          label="Nome da Categoria:"
+          value={values.nome}
+          onChange={handleChange}
+        />
         <div>
           <label>
             Descrição:
@@ -58,7 +55,14 @@ function CadastroCategoria() {
             />
           </label>
         </div>
-        <div>
+        <FormField
+          type="color"
+          name="cor"
+          label="Cor:"
+          value={values.cor}
+          onChange={handleChange}
+        />
+        {/*<div>
           <label>
             Cor:
             <input
@@ -68,7 +72,7 @@ function CadastroCategoria() {
               onChange={handleChange}
             />
           </label>
-        </div>
+        </div>*/}
         
 
         <button>
